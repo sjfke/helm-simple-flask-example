@@ -1,0 +1,26 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+apiVersion: v2
+appVersion: v0.3.0
+description: A Helm chart for flask-lorem-ipsum
+name: flask-lorem-ipsum
+type: application
+version: 0.3.0
+
+...
+files:
+  flask-lorem-ipsum-0.3.0.tgz: sha256:ec7823eb1152588c0b1d81a603a6e09b9a1331b1375a54a391e6cf77a0e4c755
+-----BEGIN PGP SIGNATURE-----
+
+wsDcBAEBCgAQBQJixBDgCRBQQrqNf6m3dgAAlD4MAJEswfMuP+/RCLFZpHlfaDPU
+/GYEz9FhefKK2Fe2AH3I4ldpyaxsAWgr70/I6HPwP+ESRgSN2wqAC5uG+6fPRE1h
+m6YtOKghPXbsofIpPN0LiztZQLUWtChszYBKIWWR7RuMtcaYM0s7b6sstAPaNnI6
+v/S4t8NHVmch0Z2tpWbb5IBDRfeKIuVd0ltIVWGZFu9no1R2hseFri/NEUz1aJmF
+Au2oz/s68XvikOOge77H1GqYYelvV6FiLmif4o5ilL8lEvKLCPKJrghCW8RCoawM
+ZiG+HkGY46l4c3uzmrMAC0S/JDWuNikHQy86Ys3KhJkHkoJNeqNS8QNR9aJaihNU
+FUnGKl+mEEErZU4ObXvEcNuyRw1hatNx0JZ/MAf5mnZ3mBDF2jl6L3P1cUOyJgY7
+EG2sFCOhumtDAtKvkXmqBPEiylLwxBRKHjcaa0QH3Hty5LIVtFxEcR4DdelYaVEI
+nzz1SRnDJi6tt9ZqbYXWMGD/P7ul1q8OKbe8KRlM0Q==
+=Kaon
+-----END PGP SIGNATURE-----
