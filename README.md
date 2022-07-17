@@ -5,7 +5,7 @@
 # Helm: Simple Flask Example
 
 Demonstrates how to use and create a Helm chart using Docker containers,
-developed in [Build Flask Docker container and deploy to OpenShift](https://github.com/sjfke/ocp-sample-flask-docker)
+developed in [Building a Flask Docker container and deploy to OpenShift](https://github.com/sjfke/docker-simple-flask-example)
 which is a simple Python Flask web application used which provides static ``Lorem Ipsum`` pages in various styles. 
 
 Various pre-built docker containers are available on [DockerHub](https://hub.docker.com/repository/docker/sjfke/flask-lorem-ipsum), 
@@ -21,6 +21,7 @@ Signing, verifying and using a helm chart repository, [ChartMuseum](https://char
 
 The deployment uses *Red Hat CodeReady Containers* (CRC) details of which can be found here:
 
+* [Red Hat OpenShift Local (formerly Red Hat CodeReady Containers)](https://developers.redhat.com/products/openshift-local/overview)
 * [Introducing Red Hat CodeReady Containers](https://code-ready.github.io/crc/);
 * [Red Hat OpenShift 4 on your laptop: Introducing Red Hat CodeReady Containers](https://developers.redhat.com/blog/2019/09/05/red-hat-openshift-4-on-your-laptop-introducing-red-hat-codeready-containers/);
 * [Red Hat CodeReady Containers / Install OpenShift on your laptop](https://developers.redhat.com/products/codeready-containers/overview);
