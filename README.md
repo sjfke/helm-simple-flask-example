@@ -493,7 +493,7 @@ $ cat -n flask-lorem-ipsum/values.yaml | tail -n +48 | head -n 22
     69	resources: {}
 ```
 
-#### Expose flask-lorem-ipsum via the Redhat Routes
+#### Expose flask-lorem-ipsum via HTTP using the Redhat Routes
 
 Redhat OpenShift Container Platform Route documentation.
 * [RedHat Openshift route.openshift.io/v1](https://docs.openshift.com/container-platform/4.10/rest_api/network_apis/route-route-openshift-io-v1.html)
@@ -659,6 +659,51 @@ $ cat -n values.yaml | head -15
     15	replicaCount: 1
 ```
 
+#### Expose flask-lorem-ipsum via HTTPS using the Redhat Routes
+
+The simplest approach is to expose the route using HTTPS using CRC self-signed certificate, such that: 
+* [https://flask-lorem-ipsum.apps-crc.testing/](https://flask-lorem-ipsum.apps-crc.testing/) - WORKS
+* [http://flask-lorem-ipsum.apps-crc.testing/](http://flask-lorem-ipsum.apps-crc.testing/) - FAILS
+
+*NOTE*: Internal to the cluster the communication remains unencrypted because the service is `HTTP` on `port 8080`
+
+The following changes are required to `templates/route.yaml`:
+* Add `annotations.haproxy.router.openshift.io/hsts_header` to force HSTS policy;
+* Add `tls.termination` to have HTTPS terminated at the cluster edge.
+
+For details see: 
+[RedHat Openshift route.openshift.io/v1](#redhat-openshift-route.openshift.io/v1) and [RedHat Openshift Configuring Routes](#redhat-openshift-configuring-routes)
+
+```bash
+diff --git a/sandbox/flask-lorem-ipsum/templates/route.yaml b/sandbox/flask-lorem-ipsum/templates/route.yaml
+index 86e8219..f42a805 100644
+--- a/sandbox/flask-lorem-ipsum/templates/route.yaml
++++ b/sandbox/flask-lorem-ipsum/templates/route.yaml
+@@ -2,6 +2,8 @@ apiVersion: route.openshift.io/v1
+ kind: Route
+ metadata:
+   name: {{ include "flask-lorem-ipsum.fullname" . }}
++  annotations:
++    haproxy.router.openshift.io/hsts_header: max-age=31536000;includeSubDomains;preload
+   labels:
+     {{- include "flask-lorem-ipsum.labels" . | nindent 4 }}
+ spec:
+@@ -10,6 +12,8 @@ spec:
+         {{ else }}
+         {{ printf "%s-%s.apps-crc.testing" "flask-lorem-ipsum" .Values.image.tag | quote }}
+         {{ end }}
++  tls:
++    termination: "edge"
+   port:
+     targetPort: {{ .Values.route.port.targetPort | default "http" }}
+   to:
+@@ -17,4 +21,3 @@ spec:
+     name: {{ include "flask-lorem-ipsum.fullname" . }}
+     weight: 100
+   wildcardPolicy: None
+```
+
+
 ## Using Helm to deploy a different version
 
 Three updates are required:
@@ -782,8 +827,6 @@ Like the Docker images themselves, helm charts, can be saved to a [remote] helm 
 * [ChartMuseum - Documentation](https://chartmuseum.com/docs/)
 * [ChartMuseum - ArtifactHUB](https://artifacthub.io/packages/helm/chartmuseum/chartmuseum)
 * [ChartMuseum - GitHub](https://github.com/helm/chartmuseum)
-* [JFrog Container Registry Helm Chart - ArtifactHUB](https://artifacthub.io/packages/helm/jfrog/artifactory-jcr)
-* [Kubernetes Helm Chart Repositories - JFROG Artifactory](https://www.jfrog.com/confluence/display/JFROG/Kubernetes+Helm+Chart+Repositories)
 
 ### Helm packing with local ChartMuseum repo
 
