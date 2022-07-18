@@ -10,7 +10,7 @@ containerPort: 8080            # new: line added
 route:
   # host: flask-lorem-ipsum.apps-crc.testing
   port:
-    targetPort: 0
+    targetPort: "http"
 
 replicaCount: 1
 
