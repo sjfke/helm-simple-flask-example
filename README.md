@@ -782,8 +782,6 @@ Like the Docker images themselves, helm charts, can be saved to a [remote] helm 
 * [ChartMuseum - Documentation](https://chartmuseum.com/docs/)
 * [ChartMuseum - ArtifactHUB](https://artifacthub.io/packages/helm/chartmuseum/chartmuseum)
 * [ChartMuseum - GitHub](https://github.com/helm/chartmuseum)
-* [JFrog Container Registry Helm Chart - ArtifactHUB](https://artifacthub.io/packages/helm/jfrog/artifactory-jcr)
-* [Kubernetes Helm Chart Repositories - JFROG Artifactory](https://www.jfrog.com/confluence/display/JFROG/Kubernetes+Helm+Chart+Repositories)
 
 ### Helm packing with local ChartMuseum repo
 
