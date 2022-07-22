@@ -1,18 +1,18 @@
 # Helm: Simple Flask Example
 ## Introduction
 
-Demonstrates how to use and create a Helm chart using Docker containers,
-developed in [Building a Flask Docker container and deploy to OpenShift](https://github.com/sjfke/docker-simple-flask-example)
+A simple example to demonstrates how to use and create a Helm chart using Docker containers, from the 
+[Building a Flask Docker container and deploy to OpenShift](https://github.com/sjfke/docker-simple-flask-example) project,
 which is a simple Python Flask web application used which provides static ``Lorem Ipsum`` pages in various styles. 
 
-Various pre-built docker containers are available on [DockerHub](https://hub.docker.com/repository/docker/sjfke/flask-lorem-ipsum), 
-and [Quay IO](https://quay.io/repository/sjfke/flask-lorem-ipsum). Notice there are three version
+Various pre-built docker containers are provided on [DockerHub](https://hub.docker.com/repository/docker/sjfke/flask-lorem-ipsum), 
+and [Quay IO](https://quay.io/repository/sjfke/flask-lorem-ipsum). Notice, there are three version
 ``v0.1.0``, ``v0.2.0`` and ``v0.3.0`` which are identical apart from the version number and a different *ugly*
 [bootstrap 4 color theme](https://bootstrap.themes.guide/). 
 
 A ``Helm chart`` will be generated for ``v0.1.0`` and then changed to support the other versions to demonstrate 
 [helm upgrade](https://helm.sh/docs/helm/helm_upgrade/) and [helm rollback](https://helm.sh/docs/helm/helm_rollback/)
-Signing, verifying and using a helm chart repository, [ChartMuseum](https://chartmuseum.com/docs/), are also demonstrated.
+Signing, verifying and using a helm chart repository, [ChartMuseum](https://chartmuseum.com/docs/), is also demonstrated.
 
 ## OpenShift Environment
 
@@ -126,7 +126,7 @@ flask-lorem-ipsum/
 
 3 directories, 10 files
 ```
-This creates a helm-chart, a folder/file structure, *flask-lorem-ipsum*, that is for ``nginx``, version ``1.16.0``, which does not install without modifications.
+This creates a helm-chart, a folder/file structure, *flask-lorem-ipsum*, that is for ``nginx``, version ``1.16.0``, (which which does not install without modifications).
 
 Chart (folder) structure
 * Chart.yaml - chart/application version;
@@ -212,7 +212,7 @@ editing the ``Chart.yaml``, ``values.yaml``, ``templates/deployment.yaml`` and `
 
 ## Updating the helm chart for the *flask-lorem-ipsum* application
 
-As mentioned earlier ``helm create`` creates a helm chart for ``nginx``, version ``1.16.0``, and so need modification for *flask-lorem-ipsum*.
+As mentioned earlier ``helm create`` creates a helm chart for ``nginx``, version ``1.16.0``, and so needs modification for *flask-lorem-ipsum*.
 
 ### Update Chart.yaml
 
@@ -452,9 +452,12 @@ best approach. The following is a good starting pint to understand your choices.
 
 * [A Guide to using Routes, Ingress and Gateway APIs in Kubernetes without vendor lock-in](https://cloud.redhat.com/blog/a-guide-to-using-routes-ingress-and-gateway-apis-in-kubernetes-without-vendor-lock-in)
 
-There are good and bad points with all these approaches. The choice is not simple and depends on your project
-requirements, how you wish to handle TLS/HTTPS connections, and if you want to do *blue/green* and/or 
-*canary* deployments.
+There are good and bad points with all these approaches. The choice is not simple and depends on various factors such as:
+
+* What the Kubernetes cluster offers;
+* Project requirements;
+* How you wish to handle TLS/HTTPS connections and certificates;
+* If you want to do *blue/green* and/or *canary* deployments.
 
 #### Expose flask-lorem-ipsum via the Ingress Controller
 
@@ -568,6 +571,7 @@ spec:
     weight: 100
   wildcardPolicy: None
 ```
+
 Also note the `name` and `labels` are using the helm chart values used in other chart YAML files, 
 which are defined in `templates/_helpers.tpl` which is created when the chart was generated.
 
@@ -665,6 +669,7 @@ The simplest approach is to expose the route using HTTPS using CRC self-signed c
 *NOTE*: Internal to the cluster the communication remains unencrypted because the service is `HTTP` on `port 8080`
 
 The following changes are required to `templates/route.yaml`:
+
 * Add `annotations.haproxy.router.openshift.io/hsts_header` to force HSTS policy;
 * Add `tls.termination` to have HTTPS terminated at the cluster edge.
 
@@ -724,6 +729,7 @@ $ cat -n flask-lorem-ipsum/Chart.yaml | tail -n +15 | head -n 10
     23	# It is recommended to use it with quotes.
     24	appVersion: "v0.2.0" # previous: "v0.1.0" was: "1.16.0"
 ```
+
 ```bash
 $ cat -n flask-lorem-ipsum/values.yaml | tail -n +5 | head -n 20
      5	livenessProbePath: "/isalive"  # new: line added
@@ -817,9 +823,12 @@ $ helm uninstall lazy-cat
 
 ## Chart Repositories
 
-Like the Docker images themselves, helm charts, can be saved to a [remote] helm chart repo. 
+Like the Docker images themselves, helm charts, can be saved to a [remote] helm chart repo, signed etc.
+The [remote] helm chart repo is essentially a standard website, with the content organized in a particular way
+so there is a large choice of what to use.
 
-### References consulted
+The example uses ChartMuseum because it is was the simplest, and quickest to setup.
+
 * [Helm: The Chart Repository Guide](https://helm.sh/docs/topics/chart_repository/)
 * [ChartMuseum - Documentation](https://chartmuseum.com/docs/)
 * [ChartMuseum - ArtifactHUB](https://artifacthub.io/packages/helm/chartmuseum/chartmuseum)
@@ -952,6 +961,7 @@ only `Chart.yaml` and `values.yaml` need minor updates. Notice that the `Chart.v
 `Chart.appVersion` are both updated even though there are no fundamental changes to the Helm chart itself.
 
 Performing an `helm upgrade` or `helm rollback` is likely to impact site availability so be sure to test the impact.
+This process is demonstrated for both the `ìngress` and `route` exposure approaches.
 
 ##### Ingress Route Modifications
 
@@ -1275,7 +1285,7 @@ $ helm rollback --dry-run lazy-dog  1 # check rollback would work
 $ helm rollback lazy-dog  1
 ```
 
-### GPG keys setup
+### Annex: GPG keys setup
 
 * [A valid PGP keypair](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key) in a binary (not ASCII-armored) format
 * [GnuPG command line tools](https://www.tutorialspoint.com/unix_commands/gpg.htm)
@@ -1354,7 +1364,7 @@ $ gpg1 --list-secret-keys | grep uid
 uid                  sjfke (Helm) <gcollis@ymail.com>
 ```
 
-### Installing Local ChartMuseum using its Helm Chart
+### Annex: Installing Local ChartMuseum using its Helm Chart
 
 ```bash
 $ oc login -u developer -p developer https://api.crc.testing:6443
