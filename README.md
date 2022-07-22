@@ -340,7 +340,7 @@ $ rm templates/NOTES.txt.cln
     22	{{- end }}
 ```
 
-# Test and Deploy flask-lorem-ipsum using the Helm Chart
+# Helm Chart test and deploy flask-lorem-ipsum 
 
 ```bash
 $ ls -l
@@ -445,7 +445,7 @@ $ oc delete route.route.openshift.io/lazy-dog-flask-lorem-ipsum
 route.route.openshift.io "lazy-dog-flask-lorem-ipsum" deleted
 ```
 
-### Adding a route to expose flask-lorem-ipsum
+## Adding a route to expose flask-lorem-ipsum
 
 There are several ways to expose a service outside the cluster, and some disagreement in the industry as to the 
 best approach. The following is a good starting pint to understand your choices.
@@ -459,7 +459,7 @@ There are good and bad points with all these approaches. The choice is not simpl
 * How you wish to handle TLS/HTTPS connections and certificates;
 * If you want to do *blue/green* and/or *canary* deployments.
 
-#### Expose flask-lorem-ipsum via the Ingress Controller
+### Expose flask-lorem-ipsum via the Ingress Controller
 
 This is the simplest *de-facto* approach, simply update ingress section in `values.yaml` as shown.
 More sophisticated control is possible via the `templates/ingress.html`, check out:
@@ -493,7 +493,7 @@ $ cat -n flask-lorem-ipsum/values.yaml | tail -n +48 | head -n 22
     69	resources: {}
 ```
 
-#### Expose flask-lorem-ipsum via HTTP using the Redhat Routes
+### Expose flask-lorem-ipsum via HTTP using the Redhat Routes
 
 Redhat OpenShift Container Platform Route documentation.
 * [RedHat Openshift route.openshift.io/v1](https://docs.openshift.com/container-platform/4.10/rest_api/network_apis/route-route-openshift-io-v1.html)
@@ -660,7 +660,7 @@ $ cat -n values.yaml | head -15
     15	replicaCount: 1
 ```
 
-#### Expose flask-lorem-ipsum via HTTPS using the Redhat Routes
+### Expose flask-lorem-ipsum via HTTPS using the Redhat Routes
 
 The simplest approach is to expose the route using HTTPS using CRC self-signed certificate, such that: 
 * [https://flask-lorem-ipsum.apps-crc.testing/](https://flask-lorem-ipsum.apps-crc.testing/) - WORKS
