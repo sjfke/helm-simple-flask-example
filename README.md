@@ -1,7 +1,7 @@
 # Helm: Simple Flask Example
 ## Introduction
 
-A simple example to demonstrates how to use and create a Helm chart using Docker containers, from the 
+A simple example to demonstrate how to use and create a Helm chart using Docker containers, from the 
 [Building a Flask Docker container and deploy to OpenShift](https://github.com/sjfke/docker-simple-flask-example) project,
 which is a simple Python Flask web application used which provides static ``Lorem Ipsum`` pages in various styles. 
 
