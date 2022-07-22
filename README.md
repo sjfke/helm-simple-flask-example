@@ -1,8 +1,5 @@
-# ** Still Under Construction **
-
-## **** DO NOT CLONE ****
-
 # Helm: Simple Flask Example
+## Introduction
 
 Demonstrates how to use and create a Helm chart using Docker containers,
 developed in [Building a Flask Docker container and deploy to OpenShift](https://github.com/sjfke/docker-simple-flask-example)
